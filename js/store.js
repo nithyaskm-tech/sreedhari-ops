@@ -42,6 +42,12 @@ class Store {
             // We DO NOT load schedules/users/notifications from local storage anymore
         }
 
+        // Load Session
+        const savedUser = localStorage.getItem('sreedhari_user');
+        if (savedUser) {
+            this.state.currentUser = JSON.parse(savedUser);
+        }
+
         // Initialize Cloud Data
         this.initSupabase();
     }
@@ -153,6 +159,7 @@ class Store {
 
         if (valid) {
             this.state.currentUser = user;
+            localStorage.setItem('sreedhari_user', JSON.stringify(user));
             this.notify();
             return { success: true };
         }
@@ -163,6 +170,7 @@ class Store {
 
     logout() {
         this.state.currentUser = null;
+        localStorage.removeItem('sreedhari_user');
         this.notify();
         window.location.reload();
     }

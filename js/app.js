@@ -1,4 +1,4 @@
-import { store } from './store.js?v=99';
+import { store } from './store.js?v=100';
 import { renderDashboard } from './pages/dashboard.js?v=7';
 import { renderCalendar } from './pages/calendar.js?v=3';
 import { renderBooking } from './pages/booking.js?v=3';
