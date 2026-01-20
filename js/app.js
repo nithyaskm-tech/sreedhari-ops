@@ -306,7 +306,7 @@ function renderSidebarProfile(user) {
     }
 
     profileEl.innerHTML = `
-        <div id="sidebar-profile-btn" class="user-profile" style="cursor: pointer; padding-top: 1rem; border-top: 1px solid var(--border-color); margin-top: auto;">
+        <div id="sidebar-profile-btn" class="user-profile" style="cursor: pointer; padding-top: 1rem; border-top: 1px solid var(--border-color); margin-top: auto;" onclick="window.handleLogout()">
              <div class="avatar">${user.avatar || 'U'}</div>
             <div class="user-info">
                 <div class="user-name" id="user-name">${displayName}</div>
@@ -316,18 +316,15 @@ function renderSidebarProfile(user) {
         </div>
     `;
 
-    const btn = document.getElementById('sidebar-profile-btn');
-    if (btn) {
-        btn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to logout?')) {
-                store.logout();
-            }
-        });
-    }
-
     if (window.lucide) window.lucide.createIcons();
 }
 
+// Global Logout Handler
+window.handleLogout = () => {
+    if (confirm('Are you sure you want to logout?')) {
+        store.logout();
+    }
+};
 
 
 // Add to updates
