@@ -156,7 +156,7 @@ class Store {
         if (user) {
             if (user.role === 'Manager' && password === 'admin') valid = true;
             if (user.role === 'Doctor' && (password === 'doctor007' || password === 'admin')) valid = true;
-            if (user.role === 'Staff' && password === '123456') valid = true;
+            if (user.role === 'Staff' && (password === '123456' || password === 'staff')) valid = true;
             if (user.email === 'sreejithsdev@gmail.com' && password === '123456789') valid = true;
         }
 
