@@ -8,7 +8,7 @@ import { renderStaff } from './pages/staff.js?v=4';
 import { renderCare } from './pages/care.js?v=3';
 import { renderSettings } from './pages/settings.js?v=2';
 
-import { renderLogin } from './pages/login.js?v=102';
+import { renderLogin } from './pages/login.js?v=103';
 
 // Simple Router
 import { renderTasks } from './pages/tasks.js';
