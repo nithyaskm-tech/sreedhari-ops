@@ -216,7 +216,7 @@ function renderNotifications() {
             <div class="notify-dot"></div>
             <div class="notify-content">
                 <div class="notify-text">${n.text}</div>
-                <div class="notify-time">${n.time}</div>
+                <div class="notify-time">${n.time_label || 'Just now'}</div>
             </div>
         </div>
     `).join('');
