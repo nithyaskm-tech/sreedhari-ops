@@ -129,7 +129,17 @@ class Store {
     async login(email, password) {
         // For prototype, we check 'app_users' table directly. 
         // In prod, use supabase.auth.signInWithPassword()
-        const user = this.state.users.find(u => u.email === email);
+        let user = this.state.users.find(u => u.email === email);
+
+        // Fallback: If not found in local state (race condition during load), fetch from Cloud
+        if (!user && supabase) {
+            const { data } = await supabase.from('app_users').select('*').eq('email', email).single();
+            if (data) {
+                user = data;
+                // Add to local state for next time
+                this.state.users.push(user);
+            }
+        }
 
         // Simple password check (Note: In real app use Supabase Auth)
         // We match against hardcoded passwords for now as per original mock

@@ -8,13 +8,26 @@ window.showView = function (viewId) {
     });
 };
 
-window.handleLogin = (e) => {
+window.togglePassword = (btn) => {
+    const input = btn.previousElementSibling;
+    if (input.type === "password") {
+        input.type = "text";
+        btn.innerHTML = '<i data-lucide="eye-off" width="20"></i>';
+    } else {
+        input.type = "password";
+        btn.innerHTML = '<i data-lucide="eye" width="20"></i>';
+    }
+    if (window.lucide) window.lucide.createIcons();
+};
+
+window.handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.elements['email'].value;
     const password = e.target.elements['password'].value;
     const errorEl = document.getElementById('login-error');
 
-    const res = store.login(email, password);
+    // Async Login Call (Supabase)
+    const res = await store.login(email, password);
 
     if (res.success) {
         window.location.hash = '#dashboard';
@@ -96,7 +109,12 @@ export function renderLogin() {
 
                     <div style="margin-bottom: 1rem;">
                          <label style="display: block; font-weight: 500; font-size: 0.875rem; color: #374151; margin-bottom: 0.5rem;">Password</label>
-                        <input name="password" type="password" required placeholder="••••••••" style="width: 100%; padding: 0.75rem; border: 1px solid #D1D5DB; border-radius: 0.5rem; outline: none;">
+                         <div style="position: relative;">
+                            <input name="password" type="password" required placeholder="Enter Password" style="width: 100%; padding: 0.75rem; padding-right: 40px; border: 1px solid #D1D5DB; border-radius: 0.5rem; outline: none;">
+                            <button type="button" onclick="togglePassword(this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #9CA3AF;">
+                                <i data-lucide="eye" width="20"></i>
+                            </button>
+                         </div>
                     </div>
                     
                     <div style="text-align: right; margin-bottom: 1.5rem;">
