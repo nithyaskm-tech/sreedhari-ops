@@ -65,10 +65,11 @@ function handleRoute() {
             if (mainContent) {
                 mainContent.style.marginLeft = '0';
                 mainContent.style.marginLeft = '0';
+                mainContent.style.marginLeft = '0';
                 mainContent.style.width = '100%';
             }
-            const actions = document.querySelector('.actions');
-            if (actions) actions.style.display = 'none';
+            const topBar = document.querySelector('.top-bar');
+            if (topBar) topBar.style.display = 'none';
 
             // Render Login
             document.getElementById('view-container').innerHTML = renderLogin();
@@ -84,8 +85,8 @@ function handleRoute() {
             mainContent.style.marginLeft = '';
             mainContent.style.width = '';
         }
-        const actions = document.querySelector('.actions');
-        if (actions) actions.style.display = 'flex';
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) topBar.style.display = 'flex';
 
         // Handle Login hash when already logged in
         if (hash === 'login') {
