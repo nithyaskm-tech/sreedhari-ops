@@ -64,8 +64,12 @@ function handleRoute() {
             if (sidebar) sidebar.style.display = 'none';
             if (mainContent) {
                 mainContent.style.marginLeft = '0';
+                mainContent.style.marginLeft = '0';
                 mainContent.style.width = '100%';
             }
+            const actions = document.querySelector('.actions');
+            if (actions) actions.style.display = 'none';
+
             // Render Login
             document.getElementById('view-container').innerHTML = renderLogin();
             document.getElementById('page-title').textContent = 'Sign In';
@@ -80,6 +84,8 @@ function handleRoute() {
             mainContent.style.marginLeft = '';
             mainContent.style.width = '';
         }
+        const actions = document.querySelector('.actions');
+        if (actions) actions.style.display = 'flex';
 
         // Handle Login hash when already logged in
         if (hash === 'login') {
