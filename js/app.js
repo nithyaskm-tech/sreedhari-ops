@@ -321,6 +321,7 @@ function renderSidebarProfile(user) {
 
 // Global Logout Handler
 window.handleLogout = () => {
+    console.log("Logout triggered");
     if (confirm('Are you sure you want to logout?')) {
         store.logout();
     }
