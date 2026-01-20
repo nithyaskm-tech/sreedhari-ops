@@ -88,7 +88,7 @@ window.handleResetPasswordFinal = (e) => {
 
 export function renderLogin() {
     return `
-        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #F3F4F6;">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #FFFFFF;">
             
             <!-- 1. LOGIN VIEW -->
             <div id="login-form-view" class="card" style="width: 100%; max-width: 400px; padding: 2.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);">

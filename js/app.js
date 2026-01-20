@@ -1,4 +1,4 @@
-import { store } from './store.js?v=3';
+import { store } from './store.js?v=99';
 import { renderDashboard } from './pages/dashboard.js?v=7';
 import { renderCalendar } from './pages/calendar.js?v=3';
 import { renderBooking } from './pages/booking.js?v=3';
@@ -8,7 +8,7 @@ import { renderStaff } from './pages/staff.js?v=4';
 import { renderCare } from './pages/care.js?v=3';
 import { renderSettings } from './pages/settings.js?v=2';
 
-import { renderLogin } from './pages/login.js?v=8';
+import { renderLogin } from './pages/login.js?v=101';
 
 // Simple Router
 import { renderTasks } from './pages/tasks.js';
@@ -52,6 +52,7 @@ function handleRoute() {
         const user = store.getCurrentUser();
         const sidebar = document.querySelector('.sidebar');
         const mainContent = document.querySelector('.main-content');
+        const viewContainer = document.getElementById('view-container');
 
         // AUTH GUARD
         if (!user) {
@@ -61,19 +62,25 @@ function handleRoute() {
                 return;
             }
             // Layout adjustments for Login Screen
+            // Layout adjustments for Login Screen
             if (sidebar) sidebar.style.display = 'none';
             if (mainContent) {
-                mainContent.style.marginLeft = '0';
-                mainContent.style.marginLeft = '0';
                 mainContent.style.marginLeft = '0';
                 mainContent.style.width = '100%';
             }
             const topBar = document.querySelector('.top-bar');
             if (topBar) topBar.style.display = 'none';
 
+            // Remove padding for full-screen login
+            if (viewContainer) {
+                viewContainer.style.padding = '0';
+                viewContainer.style.maxWidth = '100%';
+            }
+
             // Render Login
-            document.getElementById('view-container').innerHTML = renderLogin();
-            document.getElementById('page-title').textContent = 'Sign In';
+            if (viewContainer) viewContainer.innerHTML = renderLogin();
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) pageTitle.textContent = 'Sign In';
             return;
         }
 
@@ -85,8 +92,12 @@ function handleRoute() {
             mainContent.style.marginLeft = '';
             mainContent.style.width = '';
         }
-        const topBar = document.querySelector('.top-bar');
         if (topBar) topBar.style.display = 'flex';
+
+        if (viewContainer) {
+            viewContainer.style.padding = ''; // Restore default padding from CSS
+            viewContainer.style.maxWidth = '';
+        }
 
         // Handle Login hash when already logged in
         if (hash === 'login') {
@@ -106,7 +117,6 @@ function handleRoute() {
             }
         }
 
-        const viewContainer = document.getElementById('view-container');
         const pageTitle = document.getElementById('page-title');
         const navItems = document.querySelectorAll('.nav-item');
 
