@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sreedhari Ayurvedic Centre | Operations</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/style.css?v=4">
+    <link rel="stylesheet" href="./css/notifications.css?v=1">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i data-lucide="leaf"></i>
+                </div>
+                <h1>Sreedhari v2</h1>
+            </div>
+
+            <nav>
+                <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#calendar" class="nav-item" data-page="calendar">
+                    <i data-lucide="calendar"></i>
+                    <span>Cottages</span>
+                </a>
+                <a href="#booking" class="nav-item" data-page="booking">
+                    <i data-lucide="calendar-plus"></i>
+                    <span>New Booking</span>
+                </a>
+                <a href="#patients" class="nav-item" data-page="patients">
+                    <i data-lucide="users"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#treatments" class="nav-item" data-page="treatments">
+                    <i data-lucide="stethoscope"></i>
+                    <span>Treatments</span>
+                </a>
+                <a href="#tasks" class="nav-item" data-page="tasks">
+                    <i data-lucide="check-square"></i>
+                    <span>My Tasks</span>
+                </a>
+                <a href="#care" class="nav-item" data-page="care">
+                    <i data-lucide="activity"></i>
+                    <span>Diet & Care</span>
+                </a>
+                <a href="#staff" class="nav-item" data-page="staff">
+                    <i data-lucide="users"></i>
+                    <span>Staff</span>
+                </a>
+            </nav>
+
+            <script type="module">
+                import { store } from './js/store.js';
+
+                // Expose logout for the button
+                window.handleLogout = () => store.logout();
+
+                // Update profile section dynamically
+                const user = store.getCurrentUser();
+                const profileHTML = user ? `
+            <div class="user-profile" style="cursor: pointer;" onclick="if(confirm('Logout?')) handleLogout()">
+                 <div class="avatar">${user.avatar || 'U'}</div>
+                <div class="user-info">
+                    <div class="user-name">${user.name}</div>
+                    <div class="user-role">${user.role}</div>
+                </div>
+                <i data-lucide="log-out" size="16" style="margin-left: auto; color: #6B7280;"></i>
+            </div>
+        ` : '';
+
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar && user) {
+                    // Append to bottom of sidebar
+                    const footer = document.createElement('div');
+                    footer.innerHTML = profileHTML;
+                    sidebar.appendChild(footer);
+                }
+            </script>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="actions">
+                    <button class="icon-btn" id="notify-btn" title="Notifications" onclick="toggleNotifications()">
+                        <i data-lucide="bell"></i>
+                        <span class="badge" id="notify-badge">0</span>
+                    </button>
+
+                    <div id="notify-dropdown" class="notification-dropdown">
+                        <div class="notify-header">
+                            <span>Notifications</span>
+                        </div>
+                        <div class="notify-list" id="notify-list">
+                            <!-- Items go here -->
+                        </div>
+                    </div>
+                    <button class="icon-btn" title="Settings" onclick="location.hash='#settings'">
+                        <i data-lucide="settings"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div id="view-container" class="view-container">
+                <!-- Dynamic Content Loaded Here -->
+                <div class="loading-state">Loading Sreedhari System...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Error Handler -->
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            const container = document.getElementById('view-container') || document.body;
+            container.innerHTML = `
+                <div style="color: red; padding: 2rem; background: #fee;">
+                    <h3>Startup Error</h3>
+                    <p>${msg}</p>
+                    <small>${url}:${line}:${col}</small>
+                    <pre>${error?.stack || ''}</pre>
+                </div>
+            `;
+            return false;
+        };
+        window.addEventListener('unhandledrejection', function (event) {
+            const container = document.getElementById('view-container') || document.body;
+            container.innerHTML += `
+                <div style="color: red; padding: 1rem; border-top: 1px solid red;">
+                    <h3>Promise Error</h3>
+                    <p>${event.reason}</p>
+                </div>
+            `;
+        });
+    </script>
+
+    <!-- Scripts -->
+    <script type="module" src="./js/app.js?v=17"></script>
+</body>
+
+</html>
