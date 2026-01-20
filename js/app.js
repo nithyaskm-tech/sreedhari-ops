@@ -255,4 +255,18 @@ window.addEventListener('load', () => {
 });
 
 // Hash Change Listener
+// Hash Change Listener
 window.addEventListener('hashchange', handleRoute);
+
+// Store Subscription for Realtime Updates
+store.subscribe(() => {
+    // Re-run routing effectively re-renders the current page with new data
+    handleRoute();
+    updateBadgeCount();
+
+    // If notification dropdown is open, refresh it
+    const dropdown = document.getElementById('notify-dropdown');
+    if (dropdown && dropdown.style.display === 'block') {
+        renderNotifications();
+    }
+});
