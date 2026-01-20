@@ -270,7 +270,6 @@ window.addEventListener('hashchange', handleRoute);
 
 // Store Subscription for Realtime Updates
 store.subscribe(() => {
-    // Re-run routing effectively re-renders the current page with new data
     handleRoute();
     updateBadgeCount();
 
@@ -280,3 +279,56 @@ store.subscribe(() => {
         renderNotifications();
     }
 });
+
+// --- Dynamic Sidebar Profile ---
+function renderSidebarProfile(user) {
+    const sidebar = document.querySelector('.sidebar');
+    if (!sidebar) return;
+
+    let profileEl = document.getElementById('sidebar-user-profile');
+
+    if (!user) {
+        if (profileEl) profileEl.remove();
+        return;
+    }
+
+    if (!profileEl) {
+        profileEl = document.createElement('div');
+        profileEl.id = 'sidebar-user-profile';
+        // Append to sidebar
+        sidebar.appendChild(profileEl);
+    }
+
+    // Check if name needs correction (Hotfix)
+    let displayName = user.name;
+    if (user.email === 'doctor@sreedhari.com' && displayName === 'Dr. A. Nair') {
+        displayName = 'Seena Sreejith';
+    }
+
+    profileEl.innerHTML = `
+        <div class="user-profile" style="cursor: pointer; padding-top: 1rem; border-top: 1px solid var(--border-color); margin-top: auto;" onclick="window.handleLogout()">
+             <div class="avatar">${user.avatar || 'U'}</div>
+            <div class="user-info">
+                <div class="user-name" id="user-name">${displayName}</div>
+                <div class="user-role">${user.role}</div>
+            </div>
+            <i data-lucide="log-out" size="16" style="margin-left: auto; color: #6B7280;"></i>
+        </div>
+    `;
+
+    if (window.lucide) window.lucide.createIcons();
+}
+
+// Global Logout Handler
+window.handleLogout = () => {
+    if (confirm('Are you sure you want to logout?')) {
+        store.logout();
+    }
+};
+
+// Add to updates
+const originalUpdate = updateSidebarVisibility;
+updateSidebarVisibility = function (user) {
+    originalUpdate(user);
+    renderSidebarProfile(user);
+};

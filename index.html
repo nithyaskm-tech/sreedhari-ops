@@ -65,32 +65,8 @@
                 </a>
             </nav>
 
-            <script type="module">
-                import { store } from './js/store.js';
-
-                // Expose logout for the button
-                window.handleLogout = () => store.logout();
-
-                // Update profile section dynamically
-                const user = store.getCurrentUser();
-                const profileHTML = user ? `
-            <div class="user-profile" style="cursor: pointer;" onclick="if(confirm('Logout?')) handleLogout()">
-                 <div class="avatar">${user.avatar || 'U'}</div>
-                <div class="user-info">
-                    <div class="user-name">${user.name}</div>
-                    <div class="user-role">${user.role}</div>
-                </div>
-                <i data-lucide="log-out" size="16" style="margin-left: auto; color: #6B7280;"></i>
-            </div>
-        ` : '';
-
-                const sidebar = document.querySelector('.sidebar');
-                if (sidebar && user) {
-                    // Append to bottom of sidebar
-                    const footer = document.createElement('div');
-                    footer.innerHTML = profileHTML;
-                    sidebar.appendChild(footer);
-                }
+            <script>
+                // Profile rendered by app.js
             </script>
         </aside>
 
@@ -154,7 +130,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Scripts -->
-    <script type="module" src="./js/app.js?v=99"></script>
+    <script type="module" src="./js/app.js?v=105"></script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ create table if not exists public.app_users (
 
 -- 2. Insert Default Users (Matching your existing data)
 insert into public.app_users (email, name, role, dept, avatar) values
-('doctor@sreedhari.com', 'Dr. A. Nair', 'Doctor', 'Consultation', 'DR'),
+('doctor@sreedhari.com', 'Seena Sreejith', 'Doctor', 'Consultation', 'DR'),
 ('manager@sreedhari.com', 'Sreejith Manager', 'Manager', 'Administration', 'SR'),
 ('staff@sreedhari.com', 'General Staff', 'Staff', 'Operations', 'GS'),
 ('sreejithsdev@gmail.com', 'Sreejith (Admin)', 'Manager', 'Administration', 'SA')
