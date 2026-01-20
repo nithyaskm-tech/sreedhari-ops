@@ -109,7 +109,7 @@ export function renderLogin() {
                     
                     <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #E5E7EB; text-align: center; font-size: 0.8rem; color: #6B7280;">
                          <p style="margin-bottom:0.5rem; font-weight:600;">Demo Credentials:</p>
-                        <p>Doctor: doctor@sreedhari.com / admin</p>
+                        <p>Doctor: doctor@sreedhari.com / doctor007</p>
                         <p>Manager: manager@sreedhari.com / admin</p>
                         <p>Staff: staff@sreedhari.com / staff</p>
                         <p>Admin: sreejithsdev@gmail.com / 123456789</p>
