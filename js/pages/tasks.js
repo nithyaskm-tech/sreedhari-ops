@@ -65,17 +65,29 @@ function createTaskCard(t) {
     if (isDone) statusBadge = `<span style="display:inline-block; padding: 0.25rem 0.5rem; background: #DCFCE7; color: #166534; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-right: 0.5rem;">Done</span>`;
 
     let actionArea = '';
-    // Only show actions if it's MY task (or if we want managers to be able to complete tasks for others? Maybe just viewing)
-    // For now, reuse this card for both views, but actions might differ.
-    // Actually, keep actions logic simple: Anyone viewing this card can act on it if allowed?
-    // Let's restrict actions to the context.
 
-    if (isPending) {
-        actionArea = `<button onclick="handleMyTaskAction(${t.id}, 'accept')" class="btn" style="padding:0.5rem 1rem; font-size: 0.8rem; background-color: var(--primary); color: white;">Accept</button>`;
-    } else if (isAccepted) {
-        actionArea = `<button onclick="handleMyTaskAction(${t.id}, 'complete')" class="btn" style="padding:0.5rem 1rem; font-size: 0.8rem; background-color: #059669; color: white;">Mark Done</button>`;
-    } else if (isDone) {
-        actionArea = `<span style="color:#10B981; font-size:0.8rem;">✓ Done</span>`;
+    // Check role for action visibility
+    const user = store.getCurrentUser();
+    const isManager = user && (user.role === 'Manager' || user.role === 'Doctor');
+
+    if (isManager) {
+        // Managers only see status
+        if (isPending) {
+            actionArea = `<span style="color:var(--text-muted); font-size:0.85rem; background:#F3F4F6; padding:0.25rem 0.5rem; border-radius:4px;">Pending</span>`;
+        } else if (isAccepted) {
+            actionArea = `<span style="color:#D97706; font-size:0.85rem; font-weight:600; background:#FFFBEB; padding:0.25rem 0.5rem; border-radius:4px;">In Progress</span>`;
+        } else if (isDone) {
+            actionArea = `<span style="color:#10B981; font-size:0.85rem; font-weight:600; background:#ECFDF5; padding:0.25rem 0.5rem; border-radius:4px;">✓ Completed</span>`;
+        }
+    } else {
+        // Staff see buttons
+        if (isPending) {
+            actionArea = `<button onclick="handleMyTaskAction(${t.id}, 'accept')" class="btn" style="padding:0.5rem 1rem; font-size: 0.8rem; background-color: var(--primary); color: white;">Accept</button>`;
+        } else if (isAccepted) {
+            actionArea = `<button onclick="handleMyTaskAction(${t.id}, 'complete')" class="btn" style="padding:0.5rem 1rem; font-size: 0.8rem; background-color: #059669; color: white;">Mark Done</button>`;
+        } else if (isDone) {
+            actionArea = `<span style="color:#10B981; font-size:0.8rem;">✓ Done</span>`;
+        }
     }
 
     return `
