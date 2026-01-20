@@ -213,7 +213,7 @@ export function renderTreatments() {
 
                          <div style="margin-bottom: 1rem;">
                             <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Assign Staff</label>
-                            <input name="staff" type="text" placeholder="e.g. Therapist Jiji" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                            <input name="staff" type="text" placeholder="e.g. Staff Name" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
                         </div>
 
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
