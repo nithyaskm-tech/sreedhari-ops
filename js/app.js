@@ -53,6 +53,7 @@ function handleRoute() {
         const sidebar = document.querySelector('.sidebar');
         const mainContent = document.querySelector('.main-content');
         const viewContainer = document.getElementById('view-container');
+        const topBar = document.querySelector('.top-bar');
 
         // AUTH GUARD
         if (!user) {
@@ -68,7 +69,6 @@ function handleRoute() {
                 mainContent.style.marginLeft = '0';
                 mainContent.style.width = '100%';
             }
-            const topBar = document.querySelector('.top-bar');
             if (topBar) topBar.style.display = 'none';
 
             // Remove padding for full-screen login
