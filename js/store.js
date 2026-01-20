@@ -24,7 +24,8 @@ const MOCK_EXTRAS = {
     ],
     startSchedules: [], // Will be overwritten by Cloud
     users: [], // Will be overwritten by Cloud
-    notifications: [] // Will be overwritten by Cloud
+    notifications: [], // Will be overwritten by Cloud
+    inquiries: [] // Hybrid/Local
 };
 
 class Store {
@@ -39,6 +40,7 @@ class Store {
             this.state.cottages = localState.cottages || MOCK_EXTRAS.cottages;
             this.state.patients = localState.patients || MOCK_EXTRAS.patients;
             this.state.bookings = localState.bookings || MOCK_EXTRAS.bookings;
+            this.state.inquiries = localState.inquiries || MOCK_EXTRAS.inquiries;
             // We DO NOT load schedules/users/notifications from local storage anymore
         }
 
@@ -125,7 +127,8 @@ class Store {
         const hybrid = {
             cottages: this.state.cottages,
             patients: this.state.patients,
-            bookings: this.state.bookings
+            bookings: this.state.bookings,
+            inquiries: this.state.inquiries
         };
         localStorage.setItem('sreedhari_hybrid_state', JSON.stringify(hybrid));
         this.notify();
@@ -314,7 +317,30 @@ class Store {
         this.saveHybridState();
     }
 
-    // ... Other hybrid methods (skipping uncommon ones for brevity but can be added if needed)
+    // --- Inquiries (Hybrid) ---
+    getInquiries() { return this.state.inquiries || []; }
+
+    addInquiry(inquiry) {
+        if (!this.state.inquiries) this.state.inquiries = [];
+        this.state.inquiries.push({ ...inquiry, id: Date.now() });
+        this.saveHybridState();
+    }
+
+    getInquiry(id) {
+        return (this.state.inquiries || []).find(i => i.id === id);
+    }
+
+    // --- Booking Context (for transferring data from Inbox to Calendar) ---
+    setBookingContext(data) {
+        this.state.bookingContext = data;
+    }
+
+    getBookingContext() {
+        const ctx = this.state.bookingContext;
+        // Optional: this.state.bookingContext = null; // Don't clear immediately to allow refresh
+        return ctx;
+    }
+
 
     // --- Hybrid Helpers (Restored) ---
     checkAvailability(start, end, typePref) {
