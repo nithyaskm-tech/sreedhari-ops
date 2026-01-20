@@ -38,6 +38,17 @@ function updateSidebarVisibility(user) {
 
     document.querySelectorAll('.nav-item').forEach(item => {
         const page = item.getAttribute('data-page');
+
+        // Dynamic change for Tasks label
+        if (page === 'tasks') {
+            const span = item.querySelector('span');
+            if (role === 'Manager' || role === 'Doctor') {
+                if (span) span.textContent = 'Assign Tasks';
+            } else {
+                if (span) span.textContent = 'My Tasks';
+            }
+        }
+
         if (isStaff && restrictedForStaff.includes(page)) {
             item.style.display = 'none';
         } else {
