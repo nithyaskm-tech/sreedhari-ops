@@ -11,7 +11,7 @@ import { renderSettings } from './pages/settings.js?v=2';
 import { renderLogin } from './pages/login.js?v=103';
 
 // Simple Router
-import { renderTasks } from './pages/tasks.js';
+import { renderTasks } from './pages/tasks.js?v=2';
 
 const routes = {
     'login': { render: renderLogin, title: 'Login' },
